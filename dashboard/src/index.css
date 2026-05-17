@@ -2,12 +2,23 @@ html, body {
 	height: 100%;
 }
 
+#root {
+	height: 100%;
+}
+
 body {
 	margin: 0;
 	background: #fff;
 	color: #222;
 	font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
 		sans-serif;
+}
+
+.app-shell {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
 }
 
 a {
@@ -22,6 +33,7 @@ a {
 	background: #fff;
 	border-bottom: 1px solid #eee;
 	padding: 10px 16px;
+	min-height: 56px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -155,7 +167,9 @@ a {
 .dashboard-container {
 	display: grid;
 	grid-template-columns: 360px 1fr;
-	height: calc(100vh - 54px);
+	flex: 1;
+	min-height: 0;
+	height: auto;
 }
 
 .watchlist-container {
