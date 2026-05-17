@@ -19,11 +19,11 @@ function People() {
 
           <div style={{ marginTop: "25px" }}>
             <h4 style={{ fontWeight: "500", marginBottom: "8px" }}>
-              Nithin Kamath
+              Harsh Pathak
             </h4>
 
             <h6 style={{ color: "#6c757d", fontWeight: "400" }}>
-              Founder, CEO
+              Engineer
             </h6>
           </div>
         </div>
@@ -40,9 +40,9 @@ function People() {
               color: "#424242",
             }}
           >
-            Nithin bootstrapped and founded Zerodha in 2010 to overcome the
-            hurdles he faced during his decade long stint as a trader. Today,
-            Zerodha has changed the landscape of the Indian broking industry.
+            Harsh bootstrapped Zerodha Clone in 2026 to cover the
+            backend and frontend.He faced hurdle in making big projcts . Today,
+            he is a successful Engineer and can build anyhting .
           </p>
 
           <p
@@ -52,8 +52,7 @@ function People() {
               color: "#424242",
             }}
           >
-            He is a member of the SEBI Secondary Market Advisory Committee
-            and the Market Data Advisory Committee.
+            He is CSE student at VIT,chennai. He has a very strong hands on backend exprience   .
           </p>
 
           <p
@@ -63,7 +62,7 @@ function People() {
               color: "#424242",
             }}
           >
-            Playing basketball is his zen.
+            Playing cricket is his zen.
           </p>
 
           <p

@@ -98,8 +98,8 @@ function Navbar() {
               </li>
 
               <li className="nav-item">
-                <Link className="nav-link custom-nav-link" to="/products">
-                  Products
+                <Link className="nav-link custom-nav-link" to="/product">
+                  Product
                 </Link>
               </li>
 
