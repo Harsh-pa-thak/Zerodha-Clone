@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 function Navbar() {
   return (
     <>
@@ -57,14 +58,13 @@ function Navbar() {
 
       <nav className="navbar navbar-expand-lg custom-navbar">
         <div className="container d-flex align-items-center justify-content-between">
-          {/* Logo */}
-          <a className="navbar-brand" href="#">
+          <Link className="navbar-brand" to="#">
             <img
               src="logo.svg"
               alt="Zerodha logo"
               className="custom-logo"
             />
-          </a>
+          </Link>
 
           {/* Mobile toggle */}
           <button
@@ -86,39 +86,39 @@ function Navbar() {
           >
             <ul className="navbar-nav align-items-lg-center">
               <li className="nav-item">
-                <a className="nav-link custom-nav-link" href="#">
+                <Link className="nav-link custom-nav-link" to="/signup">
                   Signup
-                </a>
+                </Link>
               </li>
 
               <li className="nav-item">
-                <a className="nav-link custom-nav-link" href="#">
+                <Link className="nav-link custom-nav-link" to="/about">
                   About
-                </a>
+                </Link>
               </li>
 
               <li className="nav-item">
-                <a className="nav-link custom-nav-link" href="#">
+                <Link className="nav-link custom-nav-link" to="/products">
                   Products
-                </a>
+                </Link>
               </li>
 
               <li className="nav-item">
-                <a className="nav-link custom-nav-link" href="#">
+                <Link className="nav-link custom-nav-link" to="/pricing">
                   Pricing
-                </a>
+                </Link>
               </li>
 
               <li className="nav-item">
-                <a className="nav-link custom-nav-link" href="#">
+                <Link className="nav-link custom-nav-link" to="/support">
                   Support
-                </a>
+                </Link>
               </li>
 
               <li className="nav-item">
-                <a className="nav-link menu-icon" href="#">
+                <Link className="nav-link menu-icon" to="#">
                   ☰
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
