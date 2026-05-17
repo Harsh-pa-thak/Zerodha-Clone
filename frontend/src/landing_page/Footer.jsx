@@ -1,5 +1,3 @@
-import React from "react";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 function Footer() {
   return (
     <>
@@ -150,7 +148,7 @@ function Footer() {
           <div className="row">
             {/* Left section */}
             <div className="col-lg-3 col-md-6">
-              <img src="logo.svg" alt="Zerodha logo" className="footer-logo" />
+              <img src="/logo.svg" alt="Zerodha logo" className="footer-logo" />
               <p className="footer-copy">
                 © 2010 - 2026, Zerodha Broking Ltd.
                 <br />
@@ -191,7 +189,7 @@ function Footer() {
               <div className="store-buttons">
                 <a href="#">
                   <img
-                    src="googlePlayBadge.svg"
+                    src="/googlePlayBadge.svg"
                     alt="Get it on Google Play"
                     className="store-badge"
                   />
@@ -199,7 +197,7 @@ function Footer() {
 
                 <a href="#">
                   <img
-                    src="appstoreBadge.svg"
+                    src="/appstoreBadge.svg"
                     alt="Download on the App Store"
                     className="store-badge"
                   />

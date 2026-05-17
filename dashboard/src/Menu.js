@@ -1,35 +1,82 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Menu = () => {
+  const handleProfileClick = () => {
+    // Placeholder for profile actions; keeps UI clickable without backend/auth.
+  };
+
   return (
     <div className="menu-container">
-      <img src="logo.png" style={{ width: "50px" }} />
+      <img src="/logo.png" alt="Kite" style={{ width: "44px", height: "44px" }} />
       <div className="menus">
         <ul>
           <li>
-            <p>Dashboard</p>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `menu-link ${isActive ? "active" : ""}`
+              }
+            >
+              Dashboard
+            </NavLink>
           </li>
           <li>
-            <p>Orders</p>
+            <NavLink
+              to="/orders"
+              className={({ isActive }) =>
+                `menu-link ${isActive ? "active" : ""}`
+              }
+            >
+              Orders
+            </NavLink>
           </li>
           <li>
-            <p>Holdings</p>
+            <NavLink
+              to="/holdings"
+              className={({ isActive }) =>
+                `menu-link ${isActive ? "active" : ""}`
+              }
+            >
+              Holdings
+            </NavLink>
           </li>
           <li>
-            <p>Positions</p>
+            <NavLink
+              to="/positions"
+              className={({ isActive }) =>
+                `menu-link ${isActive ? "active" : ""}`
+              }
+            >
+              Positions
+            </NavLink>
           </li>
           <li>
-            <p>Funds</p>
+            <NavLink
+              to="/funds"
+              className={({ isActive }) =>
+                `menu-link ${isActive ? "active" : ""}`
+              }
+            >
+              Funds
+            </NavLink>
           </li>
           <li>
-            <p>Apps</p>
+            <NavLink
+              to="/apps"
+              className={({ isActive }) =>
+                `menu-link ${isActive ? "active" : ""}`
+              }
+            >
+              Apps
+            </NavLink>
           </li>
         </ul>
         <hr />
-        <div className="profile" onClick={handleProfileClick}>
+        <button type="button" className="profile" onClick={handleProfileClick}>
           <div className="avatar">ZU</div>
           <p className="username">USERID</p>
-        </div>
+        </button>
       </div>
     </div>
   );

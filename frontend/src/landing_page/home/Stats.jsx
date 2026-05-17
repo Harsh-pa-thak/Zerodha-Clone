@@ -1,7 +1,6 @@
-import React from 'react';
 function Stats() {
     return (  
-    <div className="container p-5 m-7">
+    <div className="container py-5 my-4">
             <div className="row">
                 <div className="col-6">
                     <h1 className='mb-5'>Trust with confidence</h1>
@@ -41,15 +40,15 @@ function Stats() {
                 </div>
 
                 <div className="col-6 text-center ">
-                    <img className='w-100 mb-3' src="ecosystem.png" alt="Ecosystem" />
-                    <a href="/products" className="text-primary text-decoration-none ms-3 p-5">
+                    <img className='w-100 mb-3' src="/ecosystem.png" alt="Ecosystem" />
+                    <a href="/product" className="text-primary text-decoration-none me-4">
                     Explore our products <i className="fa-solid fa-arrow-right-long ms-2"></i>
                     </a>                 
-                    <a href="/kite" className="text-primary text-decoration-none " >Try Kite demo<i className        ="fa-solid fa-arrow-right-long"></i></a>
+                    <a href="#" className="text-primary text-decoration-none" >Try Kite demo <i className="fa-solid fa-arrow-right-long ms-2"></i></a>
                 </div>
                 
                 <div className="col-12 mt-5 text-center">
-                    <img src="pressLogos.png" alt="press" />
+                    <img src="/pressLogos.png" alt="press" />
                 </div>  
             </div>
         </div>

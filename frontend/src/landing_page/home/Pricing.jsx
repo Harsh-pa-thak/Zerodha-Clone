@@ -1,4 +1,3 @@
-import React from 'react';
 function Pricing() {
     return ( 
         <div className="container p-5 mb-5">
@@ -6,14 +5,14 @@ function Pricing() {
                 <div className="col-4">
                     <h1 className='mb-4'>Unbeatble Pricing</h1>
                     <p className='mb-4'>We pioneered the concept of discount broking and price transparency in India. Flat fees and no hidden charges.</p>
-                    <a href="/price" className="text-primary text-decoration-none " >See Pricing<i className ="fa-solid fa-arrow-right-long"></i></a>
+                    <a href="/pricing" className="text-primary text-decoration-none" >See Pricing <i className="fa-solid fa-arrow-right-long ms-2"></i></a>
                 </div>
                 <div className="col-8">
                     <div className="row">
                     <div className='col'>
                         <div className="d-flex align-items-center">
                             <img
-                            src="pricing0.svg"
+                            src="/pricing0.svg"
                             alt="p0"
                             style={{ width: "150px" }}
                             />
@@ -25,7 +24,7 @@ function Pricing() {
                    <div className='col'>
                         <div className="d-flex align-items-center">
                             <img
-                            src="pricingEquity.svg"
+                            src="/pricingEquity.svg"
                             alt="p0"
                             style={{ width: "150px" }}
                             />
@@ -38,7 +37,7 @@ and   <br /> direct mutual funds
                     <div className='col'>
                         <div className="d-flex align-items-center">
                             <img
-                            src="intradayTrades.svg"
+                            src="/intradayTrades.svg"
                             alt="p0"
                             style={{ width: "150px" }}
                             />

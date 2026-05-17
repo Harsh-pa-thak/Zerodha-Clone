@@ -1,13 +1,12 @@
-import React from 'react';
 function RightSection({ img, text }) { 
 
     
     return(
-        <div className='container m-5 p-5 align-items-center'>
-            <div className="row">
-                <div className="col-6 text">{text}</div>
-                <div className="col-6 ml-5 image">
-                    <img src={img} alt="kite" style={{width:"80%"}}/>
+        <div className='container'>
+            <div className="row py-5 my-4 align-items-center g-4">
+                <div className="col-12 col-lg-6 text">{text}</div>
+                <div className="col-12 col-lg-6 image">
+                    <img src={img?.startsWith('/') ? img : `/${img}`} alt="product" className="img-fluid" />
                 </div>
             </div>
         </div>

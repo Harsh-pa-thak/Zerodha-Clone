@@ -1,12 +1,11 @@
 import React from 'react';
-import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function Award() {
     return (
-        <div className="conatiner p-5 m-5">
+        <div className="container py-5 my-4">
             <div className="row">
                 <div className="col-6 text-center">
-                    <img src="largestBroker.svg" alt="awards" className='w-75' />
+                    <img src="/largestBroker.svg" alt="awards" className='w-75' />
                 </div>
                 <div className="col-6">
                     <h1 className="mb-4">India's largest broker</h1>

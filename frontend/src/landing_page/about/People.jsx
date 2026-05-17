@@ -1,5 +1,3 @@
-import React from "react";
-
 function People() {
   return (
     <div className="container" style={{ paddingTop: "80px", paddingBottom: "80px" }}>
@@ -7,7 +5,7 @@ function People() {
         
         <div className="col-md-5 text-center">
           <img
-            src="nithinKamath.jpg"
+            src="/nithinKamath.jpg"
             alt="Nithin Kamath"
             style={{
               borderRadius: "50%",

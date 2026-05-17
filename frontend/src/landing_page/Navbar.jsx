@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 function Navbar() {
   return (
@@ -58,9 +57,9 @@ function Navbar() {
 
       <nav className="navbar navbar-expand-lg custom-navbar">
         <div className="container d-flex align-items-center justify-content-between">
-          <Link className="navbar-brand" to="#">
+          <Link className="navbar-brand" to="/">
             <img
-              src="logo.svg"
+              src="/logo.svg"
               alt="Zerodha logo"
               className="custom-logo"
             />
@@ -116,7 +115,7 @@ function Navbar() {
               </li>
 
               <li className="nav-item">
-                <Link className="nav-link menu-icon" to="#">
+                <Link className="nav-link menu-icon" to="/">
                   ☰
                 </Link>
               </li>

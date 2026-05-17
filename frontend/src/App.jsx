@@ -1,7 +1,6 @@
-import { useState } from "react";
 import "./App.css";
 import Home from "./landing_page/home/Home";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Signup from "./landing_page/signup/Signup";
 import About from "./landing_page/about/About";
 import Pricing from "./landing_page/pricing/Pricing";
@@ -11,12 +10,10 @@ import Navbar from "./landing_page/Navbar";
 import Footer from "./landing_page/Footer";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div>
-      <Navbar></Navbar>
-      
+    <div className="d-flex flex-column min-vh-100">
+      <Navbar />
+      <main className="flex-grow-1">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
@@ -25,8 +22,8 @@ function App() {
           <Route path="/product" element={<Product />} />
           <Route path="/support" element={<Support />} />
         </Routes>
-      
-      <Footer></Footer>
+      </main>
+      <Footer />
     </div>
   );
 }

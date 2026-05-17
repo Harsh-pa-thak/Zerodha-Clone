@@ -1,4 +1,3 @@
-import React from "react";
 import Hero from "./Hero";
 import LeftSection from "./LeftSection";
 import RightSection from "./RightSection";
@@ -14,23 +13,23 @@ function Product() {
         advanced charts, an elegant UI, and more. Enjoy the Kite experience
         seamlessly on your Android and iOS devices.
       </p>
-      <a href="/kite" className="text-primary text-decoration-none ">
-        Try Kite demo<i className="fa-solid fa-arrow-right-long ml-5"></i>
+      <a href="#" className="text-primary text-decoration-none">
+        Try Kite demo <i className="fa-solid fa-arrow-right-long ms-2"></i>
       </a>
 
-      <a href="/kite" className="text-primary text-decoration-none p-5 mr-5">
-        Learn more <i className="fa-solid fa-arrow-right-long"></i>
+      <a href="#" className="text-primary text-decoration-none ms-4">
+        Learn more <i className="fa-solid fa-arrow-right-long ms-2"></i>
       </a>
       <br />
       <br />
       <img
         style={{ width: "150px", marginLeft: "20px" }}
-        src="appstoreBadge.svg"
+        src="/appstoreBadge.svg"
         alt="appstore"
       />
       <img
         style={{ width: "150px", marginLeft: "20px" }}
-        src="googlePlayBadge.svg"
+        src="/googlePlayBadge.svg"
         alt="playstore"
       />
     </>
@@ -45,8 +44,8 @@ function Product() {
         The central dashboard for your Zerodha account. Gain insights into your
         trades and investments with in-depth reports and visualisations.
       </p>
-      <a href="/kite" className="text-primary text-decoration-none ">
-        Learn more <i className="fa-solid fa-arrow-right-long"></i>
+      <a href="#" className="text-primary text-decoration-none">
+        Learn more <i className="fa-solid fa-arrow-right-long ms-2"></i>
       </a>
     </>
   );
@@ -61,19 +60,19 @@ function Product() {
         your Demat account. Enjoy the investment experience on your Android and
         iOS devices.
       </p>
-      <a href="/kite" className="text-primary text-decoration-none ">
-        Coin <i className="fa-solid fa-arrow-right-long"></i>
+      <a href="#" className="text-primary text-decoration-none">
+        Coin <i className="fa-solid fa-arrow-right-long ms-2"></i>
       </a>
       <br />
       <br />
       <img
         style={{ width: "150px", marginLeft: "20px" }}
-        src="appstoreBadge.svg"
+        src="/appstoreBadge.svg"
         alt="appstore"
       />
       <img
         style={{ width: "150px", marginLeft: "20px" }}
-        src="googlePlayBadge.svg"
+        src="/googlePlayBadge.svg"
         alt="playstore"
       />
     </>
@@ -89,8 +88,8 @@ function Product() {
         HTTP/JSON APIs. If you are a startup, build your investment app and
         showcase it to our clientbase.
       </p>
-      <a href="/kite" className="text-primary text-decoration-none ">
-        Kite Connect <i className="fa-solid fa-arrow-right-long"></i>
+      <a href="#" className="text-primary text-decoration-none">
+        Kite Connect <i className="fa-solid fa-arrow-right-long ms-2"></i>
       </a>
     </>
   );
@@ -109,12 +108,12 @@ function Product() {
       <br />
       <img
         style={{ width: "150px", marginLeft: "20px" }}
-        src="appstoreBadge.svg"
+        src="/appstoreBadge.svg"
         alt="appstore"
       />
       <img
         style={{ width: "150px", marginLeft: "20px" }}
-        src="googlePlayBadge.svg"
+        src="/googlePlayBadge.svg"
         alt="playstore"
       />
     </>
