@@ -1,8 +1,8 @@
 import React from 'react';
-function Uni(img) {
+function Uni({ img }) {
     return (
         <div>
-            <img src={img} alt="" />
+            <img src={img} style={{height:"50px"}} alt="" />
         </div>
 
     );
