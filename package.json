@@ -9,5 +9,8 @@
     "dev": "npm --prefix frontend run dev",
     "dev:frontend": "npm --prefix frontend run dev",
     "dev:backend": "npm --prefix backend run dev"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.2.0"
   }
 }
