@@ -1,11 +1,13 @@
 import React from 'react';
+import Hero from './Hero';
+import Text from './Text';
+import People from './People';
 function About() {
   return (
     <div className="about-container">
-      <h2>About Us</h2>
-      <p>
-        Welcome to our platform! We are dedicated to providing you with the best experience possible. Our team is passionate about creating innovative solutions that meet your needs. We believe in transparency, integrity, and customer satisfaction. Thank you for choosing us!
-      </p>
+      <Hero></Hero>
+     <Text></Text>
+     <People></People>
     </div>
   );
 }
