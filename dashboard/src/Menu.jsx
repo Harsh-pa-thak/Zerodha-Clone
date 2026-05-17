@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 
 const Menu = () => {
@@ -8,7 +7,7 @@ const Menu = () => {
 
   return (
     <div className="menu-container">
-      <img src="/logo.png" alt="Kite" style={{ width: "44px", height: "44px" }} />
+      <img className="kite-logo" src="/logo.png" alt="Kite" />
       <div className="menus">
         <ul>
           <li>
@@ -73,9 +72,14 @@ const Menu = () => {
           </li>
         </ul>
         <hr />
-        <button type="button" className="profile" onClick={handleProfileClick}>
+        <button
+          type="button"
+          className="profile"
+          onClick={handleProfileClick}
+          aria-label="Profile"
+        >
           <div className="avatar">ZU</div>
-          <p className="username">USERID</p>
+          <p className="profile-name">USERID</p>
         </button>
       </div>
     </div>

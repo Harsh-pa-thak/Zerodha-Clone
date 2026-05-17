@@ -1,10 +1,8 @@
-import React from "react";
-
 const Summary = () => {
   return (
     <>
-      <div className="username">
-        <h6>Hi, User!</h6>
+      <div className="summary-header">
+        <h6 className="summary-title">Hi, User!</h6>
         <hr className="divider" />
       </div>
 

@@ -1,5 +1,3 @@
-import React from "react";
-
 const WatchList = () => {
   const items = [
     { symbol: "INFY", ltp: 1543.2, chg: 0.82 },
@@ -10,7 +8,7 @@ const WatchList = () => {
   ];
 
   return (
-    <div className="watchlist-container">
+    <aside className="watchlist-container" aria-label="Watchlist">
       <div className="search-container">
         <input
           type="text"
@@ -34,7 +32,7 @@ const WatchList = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </aside>
   );
 };
 
