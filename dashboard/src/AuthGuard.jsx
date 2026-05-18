@@ -1,10 +1,19 @@
-const FRONTEND_LOGIN_URL = 'http://localhost:5173/login';
+const FRONTEND_URL = 'http://localhost:5174';
+
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
+function clearAuth() {
+  document.cookie = 'zd_token=; Max-Age=0; path=/';
+}
 
 export default function AuthGuard({ children }) {
-  const token = localStorage.getItem('zd_token');
+  const token = getCookie('zd_token');
 
   if (!token) {
-    window.location.href = FRONTEND_LOGIN_URL;
+    window.location.href = `${FRONTEND_URL}/login`;
     return null;
   }
 
@@ -12,15 +21,13 @@ export default function AuthGuard({ children }) {
     const [, payload] = token.split('.');
     const decoded = JSON.parse(atob(payload));
     if (decoded.exp && decoded.exp * 1000 < Date.now()) {
-      localStorage.removeItem('zd_token');
-      localStorage.removeItem('zd_user');
-      window.location.href = FRONTEND_LOGIN_URL;
+      clearAuth();
+      window.location.href = `${FRONTEND_URL}/login`;
       return null;
     }
   } catch {
-    localStorage.removeItem('zd_token');
-    localStorage.removeItem('zd_user');
-    window.location.href = FRONTEND_LOGIN_URL;
+    clearAuth();
+    window.location.href = `${FRONTEND_URL}/login`;
     return null;
   }
 

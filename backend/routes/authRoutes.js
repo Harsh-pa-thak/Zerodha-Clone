@@ -2,22 +2,26 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import { createRequire } from 'module';
 import userModel from '../Models/userModel.js';
+import { verifyToken } from '../middleware/verifyToken.js';
 
 const require = createRequire(import.meta.url);
 const passport = require('passport');
 
 const router = express.Router();
 
-// ─── Helper ──────────────────────────────────────────────────────────────────
+const COOKIE_OPTIONS = {
+  httpOnly: false,
+  sameSite: 'lax',
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+};
 
-const signToken = (user) =>
-  jwt.sign(
+function signToken(user) {
+  return jwt.sign(
     { id: user._id, email: user.email, name: user.name },
     process.env.JWT_SECRET,
     { expiresIn: '7d' }
   );
-
-// ─── Register ────────────────────────────────────────────────────────────────
+}
 
 router.post('/register', async (req, res) => {
   try {
@@ -33,8 +37,10 @@ router.post('/register', async (req, res) => {
 
     const user = new userModel({ name, email });
     const registered = await userModel.register(user, password);
-
     const token = signToken(registered);
+
+    res.cookie('zd_token', token, COOKIE_OPTIONS);
+
     res.status(201).json({
       message: 'Account created successfully.',
       token,
@@ -49,15 +55,17 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// ─── Login ───────────────────────────────────────────────────────────────────
-
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', { session: false }, (err, user, info) => {
     if (err) return next(err);
     if (!user) {
       return res.status(401).json({ error: info?.message || 'Invalid credentials.' });
     }
+
     const token = signToken(user);
+
+    res.cookie('zd_token', token, COOKIE_OPTIONS);
+
     res.json({
       message: 'Logged in successfully.',
       token,
@@ -66,16 +74,12 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-// ─── Get current user (protected) ────────────────────────────────────────────
-
-router.get('/me', (req, res) => {
-  if (!req.user) return res.status(401).json({ error: 'Not authenticated.' });
+router.get('/me', verifyToken, (req, res) => {
   res.json({ user: req.user });
 });
 
-// ─── Logout ───────────────────────────────────────────────────────────────────
-
 router.post('/logout', (_req, res) => {
+  res.clearCookie('zd_token');
   res.json({ message: 'Logged out successfully.' });
 });
 

@@ -2,9 +2,9 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import { createRequire } from 'module';
 
-// CJS packages need createRequire under ESM
 const require = createRequire(import.meta.url);
 const passport = require('passport');
 
@@ -21,31 +21,29 @@ dotenv.config();
 
 const app = express();
 
-// ─── CORS ────────────────────────────────────────────────────────────────────
 const allowedOrigins = [
-  'http://localhost:5173', // frontend (Vite default)
-  'http://localhost:5174', // dashboard (Vite alt port)
-  'http://localhost:3000',
+  'http://localhost:5173',
+  'http://localhost:5174',
 ];
 
 app.use(
   cors({
     origin: (origin, cb) => {
       if (!origin || allowedOrigins.includes(origin)) cb(null, true);
-      else cb(new Error(`CORS blocked: ${origin}`));
+      else cb(new Error('CORS: origin not allowed'));
     },
     credentials: true,
   })
 );
 
 app.use(express.json());
+app.use(cookieParser());
 
 passport.use(userModel.createStrategy());
 passport.serializeUser(userModel.serializeUser());
 passport.deserializeUser(userModel.deserializeUser());
 app.use(passport.initialize());
 
-// ─── MongoDB ─────────────────────────────────────────────────────────────────
 mongoose
   .connect(process.env.MONGO_URI, {})
   .then(() => console.log('Connected to MongoDB'))
@@ -53,13 +51,10 @@ mongoose
 
 const PORT = process.env.PORT || 8080;
 
-// ─── Public Routes ────────────────────────────────────────────────────────────
 app.get('/', (_req, res) => res.json({ message: 'Zerodha Clone API' }));
 
-// Auth (register / login / logout / me)
 app.use('/auth', authRoutes);
 
-// ─── Protected Routes (require valid JWT) ────────────────────────────────────
 app.get('/allHoldings', verifyToken, async (_req, res) => {
   const allHoldings = await holdingsModel.find({});
   res.json(allHoldings);
@@ -124,5 +119,4 @@ app.delete('/orders/:id', verifyToken, async (req, res) => {
   }
 });
 
-// ─── Start ────────────────────────────────────────────────────────────────────
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

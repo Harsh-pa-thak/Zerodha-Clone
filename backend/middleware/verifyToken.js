@@ -1,17 +1,24 @@
 import jwt from 'jsonwebtoken';
 
 export function verifyToken(req, res, next) {
-  const authHeader = req.headers.authorization;
+  let token = null;
 
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  const authHeader = req.headers.authorization;
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    token = authHeader.split(' ')[1];
+  }
+
+  if (!token && req.cookies && req.cookies.zd_token) {
+    token = req.cookies.zd_token;
+  }
+
+  if (!token) {
     return res.status(401).json({ error: 'No token provided. Please log in.' });
   }
 
-  const token = authHeader.split(' ')[1];
-
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // { id, email, name, iat, exp }
+    req.user = decoded;
     next();
   } catch (err) {
     if (err.name === 'TokenExpiredError') {

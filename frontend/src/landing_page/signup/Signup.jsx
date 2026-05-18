@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
-/* ─── Inline styles ─────────────────────────────────────────────────────── */
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -13,7 +11,6 @@ const styles = `
     background: #f8f9fa;
   }
 
-  /* Left panel */
   .auth-left {
     flex: 1;
     background: linear-gradient(135deg, #387ed1 0%, #1a5fb4 60%, #0d3d7a 100%);
@@ -100,7 +97,6 @@ const styles = `
     margin-top: 2px;
   }
 
-  /* Right panel */
   .auth-right {
     width: 480px;
     display: flex;
@@ -129,7 +125,6 @@ const styles = `
     line-height: 1.5;
   }
 
-  /* Tab switcher */
   .auth-tabs {
     display: flex;
     background: #f0f4f9;
@@ -158,7 +153,6 @@ const styles = `
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
 
-  /* Form elements */
   .form-group {
     margin-bottom: 20px;
   }
@@ -193,19 +187,6 @@ const styles = `
     box-shadow: 0 0 0 3px rgba(56,126,209,0.12);
   }
 
-  .form-input.error {
-    border-color: #e74c3c;
-  }
-
-  .form-error {
-    font-size: 0.8rem;
-    color: #e74c3c;
-    margin-top: 5px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
   .alert-error {
     background: #fef2f2;
     border: 1px solid #fecaca;
@@ -214,9 +195,6 @@ const styles = `
     border-radius: 8px;
     font-size: 0.88rem;
     margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
   }
 
   .alert-success {
@@ -227,12 +205,8 @@ const styles = `
     border-radius: 8px;
     font-size: 0.88rem;
     margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
   }
 
-  /* Submit button */
   .btn-submit {
     width: 100%;
     padding: 13px;
@@ -247,17 +221,11 @@ const styles = `
     transition: all 0.25s ease;
     letter-spacing: 0.3px;
     margin-top: 8px;
-    position: relative;
-    overflow: hidden;
   }
 
   .btn-submit:hover:not(:disabled) {
     transform: translateY(-1px);
     box-shadow: 0 6px 20px rgba(56,126,209,0.4);
-  }
-
-  .btn-submit:active:not(:disabled) {
-    transform: translateY(0);
   }
 
   .btn-submit:disabled {
@@ -281,22 +249,6 @@ const styles = `
     to { transform: rotate(360deg); }
   }
 
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 24px 0;
-    color: #9ca3af;
-    font-size: 0.82rem;
-  }
-
-  .divider::before, .divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: #e5e7eb;
-  }
-
   .terms {
     font-size: 0.78rem;
     color: #9ca3af;
@@ -314,26 +266,19 @@ const styles = `
     text-decoration: underline;
   }
 
-  /* Responsive */
   @media (max-width: 900px) {
     .auth-left { display: none; }
     .auth-right { width: 100%; padding: 40px 28px; }
   }
 `;
 
-/* ─── Component ─────────────────────────────────────────────────────────── */
 export default function AuthPage() {
   const { register, login } = useAuth();
-  const navigate = useNavigate();
 
-  const [mode, setMode] = useState('signup'); // 'signup' | 'login'
-
-  // Form state
+  const [mode, setMode] = useState('signup');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  // UI state
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState('');
   const [success, setSuccess] = useState('');
@@ -352,15 +297,21 @@ export default function AuthPage() {
 
     try {
       if (mode === 'signup') {
-        if (!name.trim()) { setApiError('Name is required.'); setLoading(false); return; }
+        if (!name.trim()) {
+          setApiError('Name is required.');
+          setLoading(false);
+          return;
+        }
         await register({ name: name.trim(), email: email.trim(), password });
         setSuccess('Account created! Redirecting to dashboard...');
       } else {
         await login({ email: email.trim(), password });
-        setSuccess('Login successful! Redirecting...');
+        setSuccess('Login successful! Redirecting to dashboard...');
       }
 
-      setTimeout(() => navigate('/'), 1200);
+      setTimeout(() => {
+        window.location.href = 'http://localhost:5173';
+      }, 1200);
     } catch (err) {
       setApiError(err.message);
     } finally {
@@ -372,7 +323,6 @@ export default function AuthPage() {
     <>
       <style>{styles}</style>
       <div className="auth-page">
-        {/* Left branding panel */}
         <div className="auth-left">
           <div className="auth-left-content">
             <img src="/logo.svg" alt="Zerodha" className="auth-left-logo" />
@@ -387,7 +337,7 @@ export default function AuthPage() {
                 <div className="auth-stat-label">Clients</div>
               </div>
               <div className="auth-stat">
-                <div className="auth-stat-num">₹0</div>
+                <div className="auth-stat-num">Rs 0</div>
                 <div className="auth-stat-label">Delivery Brokerage</div>
               </div>
               <div className="auth-stat">
@@ -398,7 +348,6 @@ export default function AuthPage() {
           </div>
         </div>
 
-        {/* Right form panel */}
         <div className="auth-right">
           <div className="auth-form-header">
             <h1 className="auth-form-title">
@@ -411,7 +360,6 @@ export default function AuthPage() {
             </p>
           </div>
 
-          {/* Tab switcher */}
           <div className="auth-tabs" role="tablist">
             <button
               className={`auth-tab ${mode === 'signup' ? 'active' : ''}`}
@@ -431,19 +379,17 @@ export default function AuthPage() {
             </button>
           </div>
 
-          {/* Alerts */}
           {apiError && (
             <div className="alert-error" role="alert">
-              ⚠️ {apiError}
+              {apiError}
             </div>
           )}
           {success && (
             <div className="alert-success" role="status">
-              ✅ {success}
+              {success}
             </div>
           )}
 
-          {/* Form */}
           <form onSubmit={handleSubmit} noValidate>
             {mode === 'signup' && (
               <div className="form-group">
@@ -477,7 +423,12 @@ export default function AuthPage() {
 
             <div className="form-group">
               <label htmlFor="auth-password" className="form-label">
-                Password {mode === 'signup' && <span style={{ fontWeight: 400, textTransform: 'none', color: '#9ca3af' }}>(min 6 chars)</span>}
+                Password
+                {mode === 'signup' && (
+                  <span style={{ fontWeight: 400, textTransform: 'none', color: '#9ca3af' }}>
+                    {' '}(min 6 chars)
+                  </span>
+                )}
               </label>
               <input
                 id="auth-password"

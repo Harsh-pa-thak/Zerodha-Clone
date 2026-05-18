@@ -2,11 +2,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 function Navbar() {
-  const { isLoggedIn, user, logout } = useAuth();
+  const { isLoggedIn, loading, user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigate('/');
   };
 
@@ -154,7 +154,6 @@ function Navbar() {
             <img src="/logo.svg" alt="Zerodha logo" className="custom-logo" />
           </Link>
 
-          {/* Mobile toggle */}
           <button
             className="navbar-toggler border-0"
             type="button"
@@ -182,44 +181,43 @@ function Navbar() {
                 <Link className="nav-link custom-nav-link" to="/support">Support</Link>
               </li>
 
-              {isLoggedIn ? (
-                <>
-                  <li className="nav-item">
-                    <a
-                      href="http://localhost:5174"
-                      className="nav-dashboard-link"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Kite Dashboard
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <div className="nav-user-info">
-                      <div className="nav-avatar">
-                        {user?.name?.[0]?.toUpperCase() || 'U'}
-                      </div>
-                      <span className="nav-username">{user?.name?.split(' ')[0]}</span>
-                      <button
-                        id="navbar-logout-btn"
-                        className="nav-btn-logout"
-                        onClick={handleLogout}
-                        title="Log out"
+              {!loading && (
+                isLoggedIn ? (
+                  <>
+                    <li className="nav-item">
+                      <a
+                        href="http://localhost:5173"
+                        className="nav-dashboard-link"
                       >
-                        Log out
-                      </button>
-                    </div>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-btn-login" to="/login" id="navbar-login-btn">Log in</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-btn-signup" to="/signup" id="navbar-signup-btn">Sign up</Link>
-                  </li>
-                </>
+                        Kite Dashboard
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <div className="nav-user-info">
+                        <div className="nav-avatar">
+                          {user?.name?.[0]?.toUpperCase() || 'U'}
+                        </div>
+                        <span className="nav-username">{user?.name?.split(' ')[0]}</span>
+                        <button
+                          id="navbar-logout-btn"
+                          className="nav-btn-logout"
+                          onClick={handleLogout}
+                        >
+                          Log out
+                        </button>
+                      </div>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-btn-login" to="/login" id="navbar-login-btn">Log in</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-btn-signup" to="/signup" id="navbar-signup-btn">Sign up</Link>
+                    </li>
+                  </>
+                )
               )}
             </ul>
           </div>
