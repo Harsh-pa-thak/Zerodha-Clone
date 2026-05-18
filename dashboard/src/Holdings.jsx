@@ -1,9 +1,35 @@
 import React from "react";
+import { holdings } from "./data/data.js";
 
 const Holdings = () => {
+  const format2 = (value) =>
+    value.toLocaleString("en-IN", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+
+  const splitFormatted = (formatted) => {
+    const [whole, frac = "00"] = formatted.split(".");
+    return { whole, frac };
+  };
+
+  const totalInvestment = holdings.reduce(
+    (sum, stock) => sum + stock.avg * stock.qty,
+    0
+  );
+  const totalCurrentValue = holdings.reduce(
+    (sum, stock) => sum + stock.price * stock.qty,
+    0
+  );
+  const totalPnL = totalCurrentValue - totalInvestment;
+  const totalPnLPct = totalInvestment === 0 ? 0 : (totalPnL / totalInvestment) * 100;
+
+  const investmentParts = splitFormatted(format2(totalInvestment));
+  const currentParts = splitFormatted(format2(totalCurrentValue));
+
   return (
     <>
-      <h3 className="title">Holdings (13)</h3>
+      <h3 className="title">Holdings ({holdings.length})</h3>
 
       <div className="order-table">
         <table>
@@ -20,11 +46,36 @@ const Holdings = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="muted" colSpan={8}>
-                No holdings data (frontend-only)
-              </td>
-            </tr>
+            {holdings.length === 0 ? (
+              <tr>
+                <td className="muted" colSpan={8}>
+                  No holdings data
+                </td>
+              </tr>
+            ) : (
+              holdings.map((stock) => {
+                const curVal = stock.price * stock.qty;
+                const investment = stock.avg * stock.qty;
+                const pnl = curVal - investment;
+
+                const pnlClass = pnl >= 0 ? "chg pos" : "chg neg";
+                const netClass = stock.net?.startsWith("-") ? "chg neg" : "chg pos";
+                const dayClass = stock.day?.startsWith("-") ? "chg neg" : "chg pos";
+
+                return (
+                  <tr key={stock.name}>
+                    <td>{stock.name}</td>
+                    <td>{stock.qty}</td>
+                    <td>{stock.avg.toFixed(2)}</td>
+                    <td>{stock.price.toFixed(2)}</td>
+                    <td>{curVal.toFixed(2)}</td>
+                    <td className={pnlClass}>{pnl.toFixed(2)}</td>
+                    <td className={netClass}>{stock.net}</td>
+                    <td className={dayClass}>{stock.day}</td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
         </table>
       </div>
@@ -32,18 +83,21 @@ const Holdings = () => {
       <div className="row">
         <div className="col">
           <h5>
-            29,875.<span>55</span>{" "}
+            {investmentParts.whole}.<span>{investmentParts.frac}</span>{" "}
           </h5>
           <p>Total investment</p>
         </div>
         <div className="col">
           <h5>
-            31,428.<span>95</span>{" "}
+            {currentParts.whole}.<span>{currentParts.frac}</span>{" "}
           </h5>
           <p>Current value</p>
         </div>
         <div className="col">
-          <h5>1,553.40 (+5.20%)</h5>
+          <h5 className={totalPnL >= 0 ? "chg pos" : "chg neg"}>
+            {format2(totalPnL)} ({totalPnLPct >= 0 ? "+" : ""}
+            {totalPnLPct.toFixed(2)}%)
+          </h5>
           <p>P&L</p>
         </div>
       </div>
