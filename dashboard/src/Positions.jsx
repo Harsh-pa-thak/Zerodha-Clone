@@ -1,8 +1,16 @@
 import React from "react";
-import { positions } from "./data/data.js";
-
+import { useEffect,useState } from "react";
+import axios from "axios";
 const Positions = () => {
-  const totalPnL = positions.reduce((sum, stock) => {
+  let [allPositions, setAllPositions] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/allPositions").then((res) => {
+      setAllPositions(res.data);
+    });
+  }, []);
+
+  const totalPnL = allPositions.reduce((sum, stock) => {
     const curVal = stock.price * stock.qty;
     const inv = stock.avg * stock.qty;
     return sum + (curVal - inv);
@@ -10,7 +18,7 @@ const Positions = () => {
 
   return (
     <>
-      <h3 className="title">Positions ({positions.length})</h3>
+      <h3 className="title">Positions ({allPositions.length})</h3>
 
       <div className="order-table">
         <table>
@@ -26,14 +34,14 @@ const Positions = () => {
             </tr>
           </thead>
           <tbody>
-            {positions.length === 0 ? (
+            {allPositions.length === 0 ? (
               <tr>
                 <td className="muted" colSpan={7}>
                   You don't have any open positions
                 </td>
               </tr>
             ) : (
-              positions.map((stock, index) => {
+              allPositions.map((stock, index) => {
                 const curVal = stock.price * stock.qty;
                 const investment = stock.avg * stock.qty;
                 const pnl = curVal - investment;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import axios from "axios";
+import { useEffect } from "react";
 import Tooltip from "@mui/material/Tooltip";
 import Grow from "@mui/material/Grow";
 
@@ -9,9 +10,17 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 import { useGeneralContext } from "./GeneralContext";
-import { watchlist } from "./data/data.js";
+
 
 const WatchList = () => {
+  let [allWatchlist, setAllWatchlist] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/allWatchlist").then((res) => {
+      setAllWatchlist(res.data);
+    });
+  }, []);
+
   return (
     <div className="watchlist-container">
       <div className="search-container">
@@ -22,11 +31,11 @@ const WatchList = () => {
           placeholder="Search eg: infy, bse, nifty fut weekly, gold mcx"
           className="search"
         />
-        <span className="counts">{watchlist.length} / 50</span>
+        <span className="counts">{allWatchlist.length} / 50</span>
       </div>
 
       <ul className="list">
-        {watchlist.map((stock, index) => {
+        {allWatchlist.map((stock, index) => {
           return <WatchListItem stock={stock} key={index} />;
         })}
       </ul>

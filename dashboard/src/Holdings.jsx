@@ -1,18 +1,25 @@
-import React from "react";
-import { holdings } from "./data/data.js";
+import React,{useState,useEffect} from "react";
+import axios from "axios";
 
 const Holdings = () => {
+  let [allHoldings, setAllHoldings] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:8080/allHoldings").then((res) => {
+      setAllHoldings(res.data);
+    });
+  },[]);
+  
   const format2 = (value) =>
     value.toLocaleString("en-IN", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
 
-  const totalInvestment = holdings.reduce(
+  const totalInvestment = allHoldings.reduce(
     (sum, stock) => sum + stock.avg * stock.qty,
     0
   );
-  const totalCurrentValue = holdings.reduce(
+  const totalCurrentValue = allHoldings.reduce(
     (sum, stock) => sum + stock.price * stock.qty,
     0
   );
@@ -22,7 +29,7 @@ const Holdings = () => {
 
   return (
     <>
-      <h3 className="title">Holdings ({holdings.length})</h3>
+      <h3 className="title">Holdings ({allHoldings.length})</h3>
 
       <div className="order-table">
         <table>
@@ -39,14 +46,14 @@ const Holdings = () => {
             </tr>
           </thead>
           <tbody>
-            {holdings.length === 0 ? (
+            {allHoldings.length === 0 ? (
               <tr>
                 <td className="muted" colSpan={8}>
                   You don't have any holdings
                 </td>
               </tr>
             ) : (
-              holdings.map((stock) => {
+              allHoldings.map((stock) => {
                 const curVal = stock.price * stock.qty;
                 const investment = stock.avg * stock.qty;
                 const pnl = curVal - investment;
