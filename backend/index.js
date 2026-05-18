@@ -51,6 +51,54 @@ app.post('/addOrder',async(req,res)=>{
     res.json({message:'Order added successfully'});
 }); 
 
+app.put('/orders/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { qty, price } = req.body;
+
+        if (qty === undefined || price === undefined) {
+            return res.status(400).json({ error: 'qty and price are required' });
+        }
+
+        const updatedOrder = await orderModel.findByIdAndUpdate(
+            id,
+            { qty: Number(qty), price: Number(price) },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedOrder) {
+            return res.status(404).json({ error: 'Order not found' });
+        }
+
+        res.json(updatedOrder);
+    } catch (err) {
+        if (err?.name === 'CastError') {
+            return res.status(400).json({ error: 'Invalid order id' });
+        }
+        console.error('Error updating order', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.delete('/orders/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleted = await orderModel.findByIdAndDelete(id);
+
+        if (!deleted) {
+            return res.status(404).json({ error: 'Order not found' });
+        }
+
+        res.json({ message: 'Order cancelled successfully' });
+    } catch (err) {
+        if (err?.name === 'CastError') {
+            return res.status(400).json({ error: 'Invalid order id' });
+        }
+        console.error('Error cancelling order', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);

@@ -1,17 +1,79 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
+
+const API_BASE_URL = "http://localhost:8080";
+
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const [editingOrder, setEditingOrder] = useState(null);
+  const [editQty, setEditQty] = useState("");
+  const [editPrice, setEditPrice] = useState("");
+
+  const isEditOpen = useMemo(() => Boolean(editingOrder?._id), [editingOrder]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/allOrders").then((res)=>{
+    axios.get(`${API_BASE_URL}/allOrders`).then((res)=>{
         setOrders(res.data);
     });
   }, []);
+
+  const openEdit = (order) => {
+    setEditingOrder(order);
+    setEditQty(String(order.qty ?? ""));
+    setEditPrice(String(order.price ?? ""));
+  };
+
+  const closeEdit = () => {
+    setEditingOrder(null);
+    setEditQty("");
+    setEditPrice("");
+  };
+
+  const saveEdit = async () => {
+    if (!editingOrder?._id) return;
+    const qtyNum = Number(editQty);
+    const priceNum = Number(editPrice);
+    if (!Number.isFinite(qtyNum) || qtyNum <= 0) return;
+    if (!Number.isFinite(priceNum) || priceNum <= 0) return;
+
+    try {
+      const res = await axios.put(`${API_BASE_URL}/orders/${editingOrder._id}`, {
+        qty: qtyNum,
+        price: priceNum,
+      });
+
+      const updated = res.data;
+      setOrders((prev) => prev.map((o) => (o._id === updated._id ? updated : o)));
+      closeEdit();
+    } catch (err) {
+      console.error("Update order failed", err);
+    }
+  };
+
+  const cancelOrder = async (order) => {
+    if (!order?._id) return;
+    const ok = window.confirm(`Cancel order for ${order.name}?`);
+    if (!ok) return;
+
+    try {
+      await axios.delete(`${API_BASE_URL}/orders/${order._id}`);
+      setOrders((prev) => prev.filter((o) => o._id !== order._id));
+    } catch (err) {
+      console.error("Cancel order failed", err);
+    }
+  };
 
   if (!orders?.length) {
     return (
@@ -39,6 +101,7 @@ const Orders = () => {
               <th>Quantity</th>
               <th>Price</th>
               <th>Mode</th>
+              <th>Actions</th>
             </tr>
           </thead>
 
@@ -54,11 +117,51 @@ const Orders = () => {
                     : order.price}
                 </td>
                 <td>{order.mode}</td>
+                <td>
+                  <Button size="small" onClick={() => openEdit(order)}>
+                    Edit
+                  </Button>
+                  <Button
+                    size="small"
+                    color="error"
+                    onClick={() => cancelOrder(order)}
+                  >
+                    Cancel
+                  </Button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      <Dialog open={isEditOpen} onClose={closeEdit} fullWidth maxWidth="xs">
+        <DialogTitle>Edit Order {editingOrder?.name}</DialogTitle>
+        <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 1 }}>
+          <TextField
+            label="Quantity"
+            type="number"
+            inputProps={{ min: 1, step: 1 }}
+            value={editQty}
+            onChange={(e) => setEditQty(e.target.value)}
+            required
+          />
+          <TextField
+            label="Price"
+            type="number"
+            inputProps={{ min: 0, step: 0.05 }}
+            value={editPrice}
+            onChange={(e) => setEditPrice(e.target.value)}
+            required
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeEdit}>Close</Button>
+          <Button variant="contained" onClick={saveEdit}>
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
