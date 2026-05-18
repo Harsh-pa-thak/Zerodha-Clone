@@ -1,8 +1,7 @@
-import React from 'react';
 function Uni({ img }) {
     return (
         <div>
-            <img src={img} style={{height:"50px"}} alt="" />
+            <img src={img?.startsWith('/') ? img : `/${img}`} style={{height:"50px"}} alt="" />
         </div>
 
     );

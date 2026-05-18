@@ -1,5 +1,5 @@
-import React from "react";
 import Uni from "./Uni";
+import { Link } from "react-router-dom";
 function Universe() {
   let img1 = "zerodhaFundhouse.png";
   let img2 = "sensibullLogo.svg";
@@ -41,12 +41,15 @@ function Universe() {
             <Uni img={img6}></Uni>
           </div>
         </div>
-        <button
-          className="btn btn-primary p-3"
-          style={{ width: "20%", margin: "0 auto",fontSize:"22px" }}
-        >
-          Sign up for free
-        </button>
+        <div className="mt-4">
+          <Link
+            to="/signup"
+            className="btn btn-primary px-4 py-2"
+            style={{ fontSize: "18px" }}
+          >
+            Sign up for free
+          </Link>
+        </div>
       </div>
     </div>
   );
