@@ -1,12 +1,14 @@
 function People() {
   return (
-    <div className="container" style={{ paddingTop: "80px", paddingBottom: "80px" }}>
+    <div
+      className="container"
+      style={{ paddingTop: "80px", paddingBottom: "80px" }}
+    >
       <div className="row align-items-center justify-content-center">
-        
         <div className="col-md-5 text-center">
           <img
             src="/nithinKamath.jpg"
-            alt="Nithin Kamath"
+            alt="Harsh Pathak"
             style={{
               borderRadius: "50%",
               height: "300px",
@@ -20,16 +22,12 @@ function People() {
               Harsh Pathak
             </h4>
 
-            <h6 style={{ color: "#6c757d", fontWeight: "400" }}>
-              Engineer
-            </h6>
+            <h6 style={{ color: "#6c757d", fontWeight: "400" }}>Engineer</h6>
           </div>
         </div>
 
         <div className="col-md-6">
-          <h1 style={{ fontWeight: "500", marginBottom: "30px" }}>
-            People
-          </h1>
+          <h1 style={{ fontWeight: "500", marginBottom: "30px" }}>People</h1>
 
           <p
             style={{
@@ -38,9 +36,9 @@ function People() {
               color: "#424242",
             }}
           >
-            Harsh bootstrapped Zerodha Clone in 2026 to cover the
-            backend and frontend.He faced hurdle in making big projcts . Today,
-            he is a successful Engineer and can build anyhting .
+            Harsh bootstrapped this Zerodha Clone in 2026 to cover the backend
+            and frontend. He faced hurdles in making big projects. Today, he is a
+            successful engineer and can build anything.
           </p>
 
           <p
@@ -50,7 +48,8 @@ function People() {
               color: "#424242",
             }}
           >
-            He is CSE student at VIT,chennai. He has a very strong hands on backend exprience   .
+            He is a CSE student at VIT, Chennai. He has very strong hands-on
+            backend experience.
           </p>
 
           <p

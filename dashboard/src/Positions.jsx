@@ -1,8 +1,13 @@
 import React from "react";
 import { positions } from "./data/data.js";
 
-
 const Positions = () => {
+  const totalPnL = positions.reduce((sum, stock) => {
+    const curVal = stock.price * stock.qty;
+    const inv = stock.avg * stock.qty;
+    return sum + (curVal - inv);
+  }, 0);
+
   return (
     <>
       <h3 className="title">Positions ({positions.length})</h3>
@@ -21,55 +26,47 @@ const Positions = () => {
             </tr>
           </thead>
           <tbody>
-            {positions.lenght==0 ?(
+            {positions.length === 0 ? (
               <tr>
-                <td className="muted" colSpan={8}>
-                  No holdings data
+                <td className="muted" colSpan={7}>
+                  You don't have any open positions
                 </td>
               </tr>
-            ):(
-              positions.map((stock,index) => {
+            ) : (
+              positions.map((stock, index) => {
                 const curVal = stock.price * stock.qty;
                 const investment = stock.avg * stock.qty;
                 const pnl = curVal - investment;
 
                 const pnlClass = pnl >= 0 ? "chg pos" : "chg neg";
-                const netClass = stock.net?.startsWith("-") ? "chg neg" : "chg pos";
-                const dayClass = stock.day?.startsWith("-") ? "chg neg" : "chg pos";
+                const dayClass = stock.day?.startsWith("-")
+                  ? "chg neg"
+                  : "chg pos";
 
                 return (
                   <tr key={index}>
-                    <td>
-                      <stock className="product">{stock.product}</stock>
-                      
-                    </td>
-                    <td>
-                      <stock className="name">{stock.name}</stock>
-                    </td>
-                    <td>
-                      <stock className="product">{stock.qty}</stock>
-                      
-                    </td>
-                    <td>
-                      <stock className="product">{stock.avg}</stock>
-                      
-                    </td>
-                    <td>
-                      <stock className="product">{stock.price}</stock>
-                      
-                    </td>
-                    <td>
-                      <stock className={pnlClass}>{pnl.toFixed(2)}</stock>
-                      
-                    </td>
-                     <td className={dayClass}>{stock.day}</td>
+                    <td>{stock.product}</td>
+                    <td>{stock.name}</td>
+                    <td>{stock.qty}</td>
+                    <td>{stock.avg.toFixed(2)}</td>
+                    <td>{stock.price.toFixed(2)}</td>
+                    <td className={pnlClass}>{pnl.toFixed(2)}</td>
+                    <td className={dayClass}>{stock.day}</td>
                   </tr>
-                )
+                );
               })
-            )
-          }
+            )}
           </tbody>
         </table>
+      </div>
+
+      <div className="row">
+        <div className="col">
+          <h5 className={totalPnL >= 0 ? "chg pos" : "chg neg"}>
+            {totalPnL.toFixed(2)}
+          </h5>
+          <p>Total P&L</p>
+        </div>
       </div>
     </>
   );

@@ -3,14 +3,20 @@ import React from "react";
 const Funds = () => {
   return (
     <>
+      <h3 className="title">Funds</h3>
+
       <div className="funds">
-        <p>Instant, zero-cost fund transfers with UPI </p>
-        <button type="button" className="btn btn-green">Add funds</button>
-        <button type="button" className="btn btn-blue">Withdraw</button>
+        <p>Instant, zero-cost fund transfers with UPI</p>
+        <button type="button" className="btn btn-green">
+          Add funds
+        </button>
+        <button type="button" className="btn btn-blue">
+          Withdraw
+        </button>
       </div>
 
-      <div className="row">
-        <div className="col">
+      <div className="funds-grid">
+        <div className="funds-col">
           <span>
             <p>Equity</p>
           </span>
@@ -30,16 +36,12 @@ const Funds = () => {
             </div>
             <hr />
             <div className="data">
-              <p>Opening Balance</p>
+              <p>Opening balance</p>
               <p>4,043.10</p>
             </div>
             <div className="data">
-              <p>Opening Balance</p>
-              <p>3736.40</p>
-            </div>
-            <div className="data">
               <p>Payin</p>
-              <p>4064.00</p>
+              <p>4,064.00</p>
             </div>
             <div className="data">
               <p>SPAN</p>
@@ -67,16 +69,18 @@ const Funds = () => {
               <p>0.00</p>
             </div>
             <div className="data">
-              <p>Total Collateral</p>
+              <p>Total collateral</p>
               <p>0.00</p>
             </div>
           </div>
         </div>
 
-        <div className="col">
+        <div className="funds-col">
           <div className="commodity">
             <p>You don't have a commodity account</p>
-            <button type="button" className="btn btn-blue">Open account</button>
+            <button type="button" className="btn btn-blue">
+              Open account
+            </button>
           </div>
         </div>
       </div>

@@ -12,6 +12,13 @@ body {
 	color: #222;
 	font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
 		sans-serif;
+	line-height: 1.55;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
 }
 
 .app-shell {
@@ -26,14 +33,20 @@ a {
 	text-decoration: none;
 }
 
+a:hover {
+	text-decoration: underline;
+}
+
+/* ===== Top Bar ===== */
+
 .topbar-container {
 	position: sticky;
 	top: 0;
 	z-index: 10;
 	background: #fff;
-	border-bottom: 1px solid #eee;
-	padding: 10px 16px;
-	min-height: 56px;
+	border-bottom: 1px solid #e5e5e5;
+	padding: 0 20px;
+	height: 48px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -43,36 +56,38 @@ a {
 .indices-container {
 	display: flex;
 	align-items: center;
-	gap: 18px;
+	gap: 24px;
 	min-width: 240px;
 }
 
 .index-item {
 	display: flex;
 	flex-direction: column;
-	gap: 2px;
+	gap: 1px;
 }
 
 .index-name {
-	font-size: 12px;
-	color: #666;
+	font-size: 11px;
+	color: #888;
+	text-transform: uppercase;
+	letter-spacing: 0.3px;
 	line-height: 1.1;
 }
 
 .index-row {
 	display: flex;
 	align-items: baseline;
-	gap: 10px;
+	gap: 8px;
 }
 
 .index-points {
 	font-weight: 700;
-	font-size: 15px;
-	line-height: 1.1;
+	font-size: 14px;
+	line-height: 1.2;
 }
 
 .index-chg {
-	font-size: 12px;
+	font-size: 11px;
 	font-variant-numeric: tabular-nums;
 }
 
@@ -84,6 +99,8 @@ a {
 	color: #d1242f;
 }
 
+/* ===== Menu / Nav ===== */
+
 .menu-container {
 	display: flex;
 	align-items: center;
@@ -94,8 +111,8 @@ a {
 }
 
 .kite-logo {
-	width: 40px;
-	height: 40px;
+	width: 28px;
+	height: 28px;
 	flex: 0 0 auto;
 }
 
@@ -103,22 +120,24 @@ a {
 	list-style: none;
 	display: flex;
 	align-items: center;
-	gap: 14px;
+	gap: 4px;
 	margin: 0;
 	padding: 0;
 	white-space: nowrap;
 }
 
 .menu-link {
-	font-size: 14px;
-	color: #444;
-	padding: 6px 8px;
-	border-radius: 8px;
+	font-size: 13px;
+	color: #666;
+	padding: 6px 10px;
+	border-radius: 4px;
+	transition: background 0.15s, color 0.15s;
 }
 
 .menu-link:hover {
-	background: #f7f7f7;
+	background: #f5f5f5;
 	color: #222;
+	text-decoration: none;
 }
 
 .menu-link.active {
@@ -135,68 +154,81 @@ a {
 	background: transparent;
 	display: flex;
 	align-items: center;
-	gap: 10px;
-	padding: 6px 10px;
-	border-radius: 8px;
+	gap: 8px;
+	padding: 4px 8px;
+	border-radius: 4px;
 	white-space: nowrap;
+	cursor: pointer;
+	transition: background 0.15s;
 }
 
 .profile:hover {
-	background: #f7f7f7;
+	background: #f5f5f5;
 }
 
 .avatar {
-	width: 28px;
-	height: 28px;
+	width: 26px;
+	height: 26px;
 	border-radius: 50%;
 	background: #e9f1fd;
 	color: #387ed1;
 	display: grid;
 	place-items: center;
 	font-weight: 700;
-	font-size: 12px;
+	font-size: 11px;
 }
-
 
 .profile-name {
 	margin: 0;
-	font-size: 13px;
+	font-size: 12px;
 	color: #444;
 }
 
+/* ===== Dashboard Layout ===== */
+
 .dashboard-container {
 	display: grid;
-	grid-template-columns: 360px 1fr;
+	grid-template-columns: 340px 1fr;
 	flex: 1;
 	min-height: 0;
 	height: auto;
 }
 
+/* ===== Watchlist (Left Panel) ===== */
+
 .watchlist-container {
-	border-right: 1px solid #eee;
-	padding: 14px;
-	overflow: auto;
+	border-right: 1px solid #e5e5e5;
+	padding: 12px;
+	overflow-y: auto;
+	background: #fff;
 }
 
 .search-container {
 	display: flex;
 	align-items: center;
-	gap: 10px;
-	margin-bottom: 12px;
+	gap: 8px;
+	margin-bottom: 8px;
 }
 
 .search {
 	width: 100%;
-	border: 1px solid #e5e5e5;
-	border-radius: 8px;
-	padding: 10px 12px;
-	font-size: 13px;
+	border: 1px solid #e0e0e0;
+	border-radius: 4px;
+	padding: 8px 10px;
+	font-size: 12px;
+	outline: none;
+	transition: border-color 0.15s;
+}
+
+.search:focus {
+	border-color: #387ed1;
 }
 
 .counts {
-	font-size: 12px;
-	color: #777;
+	font-size: 11px;
+	color: #999;
 	white-space: nowrap;
+	font-variant-numeric: tabular-nums;
 }
 
 .list {
@@ -205,28 +237,316 @@ a {
 	margin: 0;
 }
 
-.watch-item {
-	display: grid;
-	grid-template-columns: 1fr auto auto;
-	gap: 10px;
-	padding: 10px 6px;
-	border-radius: 8px;
+.list > li {
+	position: relative;
 }
 
-.watch-item:hover {
+.item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 8px;
+	border-bottom: 1px solid #f5f5f5;
+	cursor: pointer;
+	transition: background 0.1s;
+}
+
+.list > li:hover .item {
+	background: #f8f9fa;
+}
+
+.item p {
+	margin: 0;
+	font-size: 13px;
+	font-weight: 600;
+	color: #222;
+}
+
+.itemInfo {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-variant-numeric: tabular-nums;
+}
+
+.itemInfo .percent {
+	font-size: 12px;
+	font-weight: 500;
+}
+
+.itemInfo .price {
+	font-size: 13px;
+	font-weight: 600;
+	color: #222;
+	min-width: 70px;
+	text-align: right;
+}
+
+.up {
+	color: #1a7f37;
+}
+
+.down {
+	color: #d1242f;
+}
+
+.itemInfo .up,
+.itemInfo .down {
+	display: flex;
+	align-items: center;
+}
+
+.itemInfo .MuiSvgIcon-root {
+	font-size: 18px;
+}
+
+/* Watchlist Action Buttons (on hover) */
+
+.actions {
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	padding: 0 6px;
+	gap: 4px;
+	background: linear-gradient(90deg, transparent 0%, #f8f9fa 16%, #f8f9fa 100%);
+	z-index: 2;
+}
+
+.actions > span {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.actions .buy {
+	background: #387ed1;
+	color: #fff;
+	border: none;
+	padding: 4px 12px;
+	border-radius: 2px;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	cursor: pointer;
+	letter-spacing: 0.5px;
+	transition: background 0.15s;
+}
+
+.actions .buy:hover {
+	background: #2c6bb5;
+}
+
+.actions .sell {
+	background: #e54040;
+	color: #fff;
+	border: none;
+	padding: 4px 12px;
+	border-radius: 2px;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	cursor: pointer;
+	letter-spacing: 0.5px;
+	transition: background 0.15s;
+}
+
+.actions .sell:hover {
+	background: #c93030;
+}
+
+.actions .action {
+	background: transparent;
+	border: 1px solid #ddd;
+	padding: 3px 6px;
+	border-radius: 2px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	transition: background 0.15s;
+	color: #666;
+}
+
+.actions .action:hover {
+	background: #eee;
+}
+
+.actions .action .icon {
+	font-size: 16px;
+}
+
+/* ===== Content Area (Right Panel) ===== */
+
+.content {
+	padding: 20px 24px;
+	overflow-y: auto;
 	background: #fafafa;
 }
 
-.symbol {
-	font-weight: 600;
+/* ===== Summary / Dashboard Home ===== */
+
+.summary-header {
+	margin-bottom: 16px;
 }
 
-.ltp {
+.summary-title {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 600;
+	color: #444;
+}
+
+.divider {
+	border: none;
+	border-top: 1px solid #e5e5e5;
+	margin: 12px 0 0;
+}
+
+.section {
+	margin-bottom: 24px;
+}
+
+.section > span {
+	display: block;
+	margin-bottom: 8px;
+}
+
+.section > span > p {
+	margin: 0;
+	font-size: 12px;
+	font-weight: 600;
+	color: #888;
+	text-transform: uppercase;
+	letter-spacing: 0.4px;
+}
+
+.data {
+	display: flex;
+	align-items: flex-start;
+	gap: 32px;
+}
+
+.data .first {
+	min-width: 160px;
+}
+
+.data .first h3 {
+	margin: 0;
+	font-size: 28px;
+	font-weight: 700;
+	color: #222;
+	line-height: 1.2;
+}
+
+.data .first h3.profit {
+	color: #1a7f37;
+}
+
+.data .first h3.loss {
+	color: #d1242f;
+}
+
+.data .first h3 small {
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.data .first p {
+	margin: 4px 0 0;
+	font-size: 12px;
+	color: #888;
+}
+
+.data hr {
+	border: none;
+	border-left: 1px solid #e5e5e5;
+	height: 52px;
+	margin: 0;
+}
+
+.data .second {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.data .second p {
+	margin: 0;
+	font-size: 13px;
+	color: #666;
+	display: flex;
+	justify-content: space-between;
+	gap: 16px;
+}
+
+.data .second p span {
+	font-weight: 600;
+	color: #222;
+	font-variant-numeric: tabular-nums;
+}
+
+/* ===== Page Titles ===== */
+
+.title {
+	font-size: 16px;
+	font-weight: 600;
+	color: #222;
+	margin: 0 0 16px;
+}
+
+/* ===== Tables (Holdings, Positions) ===== */
+
+.order-table {
+	margin-bottom: 20px;
+	background: #fff;
+	border-radius: 4px;
+	border: 1px solid #e5e5e5;
+	overflow: hidden;
+}
+
+.order-table table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.order-table th {
+	background: #fafafa;
+	border-bottom: 1px solid #e5e5e5;
+	padding: 10px 12px;
+	font-size: 11px;
+	font-weight: 600;
+	color: #888;
+	text-transform: uppercase;
+	letter-spacing: 0.3px;
+	text-align: left;
+	white-space: nowrap;
+}
+
+.order-table td {
+	border-bottom: 1px solid #f0f0f0;
+	padding: 10px 12px;
+	font-size: 13px;
 	color: #333;
+	font-variant-numeric: tabular-nums;
+}
+
+.order-table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+.order-table tbody tr:hover {
+	background: #f8f9fa;
+}
+
+.muted {
+	color: #999;
 }
 
 .chg {
 	font-variant-numeric: tabular-nums;
+	font-weight: 500;
 }
 
 .chg.pos {
@@ -237,66 +557,201 @@ a {
 	color: #d1242f;
 }
 
-.content {
-	padding: 18px;
-	overflow: auto;
+/* ===== Summary Footer (Holdings / Positions) ===== */
+
+.row {
+	display: flex;
+	gap: 32px;
+	padding: 16px 0;
+	flex-wrap: wrap;
 }
 
-.summary-header {
-	margin-bottom: 10px;
+.col {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
 }
 
-.summary-title {
+.col h5 {
 	margin: 0;
-	font-size: 18px;
-	font-weight: 650;
+	font-size: 16px;
+	font-weight: 700;
+	color: #222;
+	font-variant-numeric: tabular-nums;
 }
 
-.divider {
-	border: none;
-	border-top: 1px solid #eee;
-	margin: 10px 0 0;
+.col h5 span {
+	color: #999;
+	font-weight: 400;
 }
 
-.title {
-	font-size: 18px;
-	margin: 8px 0 14px;
+.col p {
+	margin: 0;
+	font-size: 11px;
+	color: #888;
+	text-transform: uppercase;
+	letter-spacing: 0.3px;
 }
 
-.order-table table {
-	width: 100%;
-	border-collapse: collapse;
-}
+/* ===== Buttons ===== */
 
-.order-table th, .order-table td {
-	border-bottom: 1px solid #eee;
-	padding: 10px 8px;
+.btn {
+	display: inline-block;
+	padding: 8px 20px;
 	font-size: 13px;
+	font-weight: 600;
+	border-radius: 4px;
+	border: none;
+	cursor: pointer;
+	transition: background 0.15s, opacity 0.15s;
+	text-decoration: none;
+	line-height: 1.4;
 }
 
-.muted {
-	color: #777;
+.btn:hover {
+	opacity: 0.9;
+	text-decoration: none;
 }
 
 .btn-green {
 	background: #1a7f37;
 	color: #fff;
-	border: none;
 }
 
 .btn-blue {
 	background: #387ed1;
 	color: #fff;
-	border: none;
 }
+
+/* ===== Orders Empty State ===== */
+
+.orders {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 320px;
+}
+
+.no-orders {
+	text-align: center;
+}
+
+.no-orders p {
+	font-size: 14px;
+	color: #888;
+	margin: 0 0 16px;
+}
+
+.no-orders .btn {
+	background: #387ed1;
+	color: #fff;
+}
+
+/* ===== Funds Page ===== */
 
 .funds {
 	display: flex;
 	align-items: center;
-	gap: 10px;
+	gap: 12px;
 	flex-wrap: wrap;
-	margin-bottom: 18px;
+	margin-bottom: 24px;
+	padding: 14px 16px;
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	border-radius: 4px;
 }
+
+.funds > p {
+	margin: 0;
+	font-size: 13px;
+	color: #666;
+	flex: 1;
+}
+
+.funds-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px;
+}
+
+.funds-col {
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	border-radius: 4px;
+	padding: 16px;
+}
+
+.funds-col > span {
+	display: block;
+	margin-bottom: 12px;
+}
+
+.funds-col > span > p {
+	margin: 0;
+	font-size: 12px;
+	font-weight: 600;
+	color: #888;
+	text-transform: uppercase;
+	letter-spacing: 0.4px;
+}
+
+.table {
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+}
+
+.table .data {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 16px;
+	padding: 8px 0;
+	border-bottom: 1px solid #f5f5f5;
+}
+
+.table .data:last-child {
+	border-bottom: none;
+}
+
+.table .data p {
+	margin: 0;
+	font-size: 13px;
+	color: #555;
+}
+
+.table .data p.imp {
+	font-weight: 600;
+	color: #222;
+}
+
+.table .data p.imp.colored {
+	color: #1a7f37;
+}
+
+.table hr {
+	border: none;
+	border-top: 1px solid #e5e5e5;
+	margin: 4px 0;
+}
+
+.commodity {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	min-height: 200px;
+	gap: 12px;
+}
+
+.commodity p {
+	margin: 0;
+	font-size: 13px;
+	color: #888;
+}
+
+/* ===== Responsive ===== */
 
 @media (max-width: 992px) {
 	.dashboard-container {
@@ -306,13 +761,17 @@ a {
 
 	.watchlist-container {
 		border-right: 0;
-		border-bottom: 1px solid #eee;
+		border-bottom: 1px solid #e5e5e5;
 		max-height: 320px;
 	}
 
 	.menus ul {
-		gap: 10px;
+		gap: 2px;
 		flex-wrap: wrap;
 		justify-content: flex-end;
+	}
+
+	.funds-grid {
+		grid-template-columns: 1fr;
 	}
 }

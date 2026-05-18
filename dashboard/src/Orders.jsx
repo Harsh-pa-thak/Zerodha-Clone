@@ -3,15 +3,18 @@ import { Link } from "react-router-dom";
 
 const Orders = () => {
   return (
-    <div className="orders">
-      <div className="no-orders">
-        <p>You haven't placed any orders today</p>
+    <>
+      <h3 className="title">Orders</h3>
 
-        <Link to={"/"} className="btn">
-          Get started
-        </Link>
+      <div className="orders">
+        <div className="no-orders">
+          <p>You haven't placed any orders today</p>
+          <Link to="/" className="btn btn-blue">
+            Get started
+          </Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

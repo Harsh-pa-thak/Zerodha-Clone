@@ -42,7 +42,7 @@ function Hero() {
           marginBottom: "18px",
         }}
       >
-        Intraday and F&amp;O trades
+        Intraday and F&O trades
       </h3>
 
       <p
@@ -85,7 +85,7 @@ function Hero() {
         }}
       >
         All direct mutual fund investments are absolutely free — ₹ 0 commissions
-        &amp; DP charges.
+        & DP charges.
       </p>
     </div>
   );
