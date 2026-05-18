@@ -1,12 +1,12 @@
 import React from "react";
 import { useEffect,useState } from "react";
-import axios from "axios";
+import { apiGet } from "./api";
 const Positions = () => {
   let [allPositions, setAllPositions] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/allPositions").then((res) => {
-      setAllPositions(res.data);
+    apiGet("/allPositions").then((data) => {
+      if (data) setAllPositions(data);
     });
   }, []);
 

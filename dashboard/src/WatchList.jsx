@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { apiGet } from "./api";
 import Tooltip from "@mui/material/Tooltip";
 import Grow from "@mui/material/Grow";
 
@@ -16,8 +15,8 @@ const WatchList = () => {
   let [allWatchlist, setAllWatchlist] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/allWatchlist").then((res) => {
-      setAllWatchlist(res.data);
+    apiGet("/allWatchlist").then((data) => {
+      if (data) setAllWatchlist(data);
     });
   }, []);
 

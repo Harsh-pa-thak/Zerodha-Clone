@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { apiPost } from "./api";
 import {
     Button,
     Dialog,
@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import { useGeneralContext } from "./GeneralContext";
 
-const API_BASE_URL = "http://localhost:8080";
 
 const Sell = () => {
     const {
@@ -39,7 +38,7 @@ const Sell = () => {
         if (!Number.isFinite(priceNum) || priceNum <= 0) return;
 
         try {
-            await axios.post(`${API_BASE_URL}/addOrder`, {
+            await apiPost("/addOrder", {
                 name: selectedStock,
                 qty: quantityNum,
                 price: priceNum,

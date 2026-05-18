@@ -1,5 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+
 function Navbar() {
+  const { isLoggedIn, user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
     <>
       <style>
@@ -11,9 +21,9 @@ function Navbar() {
           }
 
           .custom-nav-link {
-            font-size: 16px;
-            margin-left: 28px;
-            color: #666666 !important;
+            font-size: 15px;
+            margin-left: 24px;
+            color: #555555 !important;
             font-weight: 400;
           }
 
@@ -25,32 +35,115 @@ function Navbar() {
             width: 170px;
           }
 
-          .menu-icon {
-            font-size: 30px;
-            line-height: 1;
-            color: #444444 !important;
-            margin-left: 28px;
-            margin-top: -4px;
-          }
-
           .navbar-toggler:focus {
             box-shadow: none;
           }
 
+          .nav-btn-login {
+            display: inline-block;
+            margin-left: 24px;
+            padding: 8px 20px;
+            border: 1.5px solid #387ed1;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #387ed1 !important;
+            text-decoration: none;
+            transition: all 0.2s ease;
+          }
+
+          .nav-btn-login:hover {
+            background: #387ed1;
+            color: #fff !important;
+          }
+
+          .nav-btn-signup {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 8px 20px;
+            background: #387ed1;
+            border: 1.5px solid #387ed1;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff !important;
+            text-decoration: none;
+            transition: all 0.2s ease;
+          }
+
+          .nav-btn-signup:hover {
+            background: #1a5fb4;
+            border-color: #1a5fb4;
+          }
+
+          .nav-user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 24px;
+          }
+
+          .nav-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #387ed1, #1a5fb4);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+          }
+
+          .nav-username {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+          }
+
+          .nav-btn-logout {
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: #e74c3c;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 4px;
+            font-family: inherit;
+          }
+
+          .nav-btn-logout:hover {
+            text-decoration: underline;
+          }
+
+          .nav-dashboard-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 24px;
+            padding: 8px 18px;
+            background: #1a5fb4;
+            color: #fff !important;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+          }
+
+          .nav-dashboard-link:hover {
+            background: #0d3d7a;
+          }
+
           @media (max-width: 991px) {
-            .custom-navbar {
-              height: auto;
-              padding: 15px 0;
-            }
-
-            .custom-nav-link {
-              margin-left: 0;
-              padding: 10px 0;
-            }
-
-            .menu-icon {
-              margin-left: 0;
-            }
+            .custom-navbar { height: auto; padding: 15px 0; }
+            .custom-nav-link { margin-left: 0; padding: 8px 0; }
+            .nav-btn-login, .nav-btn-signup { margin-left: 0; margin-top: 8px; display: block; text-align: center; }
+            .nav-user-info { margin-left: 0; margin-top: 8px; }
+            .nav-dashboard-link { margin-left: 0; margin-top: 8px; display: inline-flex; }
           }
         `}
       </style>
@@ -58,11 +151,7 @@ function Navbar() {
       <nav className="navbar navbar-expand-lg custom-navbar">
         <div className="container d-flex align-items-center justify-content-between">
           <Link className="navbar-brand" to="/">
-            <img
-              src="/logo.svg"
-              alt="Zerodha logo"
-              className="custom-logo"
-            />
+            <img src="/logo.svg" alt="Zerodha logo" className="custom-logo" />
           </Link>
 
           {/* Mobile toggle */}
@@ -78,47 +167,60 @@ function Navbar() {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          {/* Right links */}
-          <div
-            className="collapse navbar-collapse justify-content-end"
-            id="navbarSupportedContent"
-          >
+          <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul className="navbar-nav align-items-lg-center">
               <li className="nav-item">
-                <Link className="nav-link custom-nav-link" to="/signup">
-                  Signup
-                </Link>
+                <Link className="nav-link custom-nav-link" to="/about">About</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link custom-nav-link" to="/product">Product</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link custom-nav-link" to="/pricing">Pricing</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link custom-nav-link" to="/support">Support</Link>
               </li>
 
-              <li className="nav-item">
-                <Link className="nav-link custom-nav-link" to="/about">
-                  About
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link className="nav-link custom-nav-link" to="/product">
-                  Product
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link className="nav-link custom-nav-link" to="/pricing">
-                  Pricing
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link className="nav-link custom-nav-link" to="/support">
-                  Support
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link className="nav-link menu-icon" to="/">
-                  ☰
-                </Link>
-              </li>
+              {isLoggedIn ? (
+                <>
+                  <li className="nav-item">
+                    <a
+                      href="http://localhost:5174"
+                      className="nav-dashboard-link"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Kite Dashboard
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <div className="nav-user-info">
+                      <div className="nav-avatar">
+                        {user?.name?.[0]?.toUpperCase() || 'U'}
+                      </div>
+                      <span className="nav-username">{user?.name?.split(' ')[0]}</span>
+                      <button
+                        id="navbar-logout-btn"
+                        className="nav-btn-logout"
+                        onClick={handleLogout}
+                        title="Log out"
+                      >
+                        Log out
+                      </button>
+                    </div>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-btn-login" to="/login" id="navbar-login-btn">Log in</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-btn-signup" to="/signup" id="navbar-signup-btn">Sign up</Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

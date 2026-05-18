@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { apiGet, apiPut, apiDelete } from "./api";
 
 import {
   Button,
@@ -11,8 +11,6 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-
-const API_BASE_URL = "http://localhost:8080";
 
 
 const Orders = () => {
@@ -24,8 +22,8 @@ const Orders = () => {
   const isEditOpen = useMemo(() => Boolean(editingOrder?._id), [editingOrder]);
 
   useEffect(() => {
-    axios.get(`${API_BASE_URL}/allOrders`).then((res)=>{
-        setOrders(res.data);
+    apiGet("/allOrders").then((data)=>{
+        if (data) setOrders(data);
     });
   }, []);
 
@@ -49,14 +47,15 @@ const Orders = () => {
     if (!Number.isFinite(priceNum) || priceNum <= 0) return;
 
     try {
-      const res = await axios.put(`${API_BASE_URL}/orders/${editingOrder._id}`, {
+      const updated = await apiPut(`/orders/${editingOrder._id}`, {
         qty: qtyNum,
         price: priceNum,
       });
 
-      const updated = res.data;
-      setOrders((prev) => prev.map((o) => (o._id === updated._id ? updated : o)));
-      closeEdit();
+      if (updated) {
+        setOrders((prev) => prev.map((o) => (o._id === updated._id ? updated : o)));
+        closeEdit();
+      }
     } catch (err) {
       console.error("Update order failed", err);
     }
@@ -68,7 +67,7 @@ const Orders = () => {
     if (!ok) return;
 
     try {
-      await axios.delete(`${API_BASE_URL}/orders/${order._id}`);
+      await apiDelete(`/orders/${order._id}`);
       setOrders((prev) => prev.filter((o) => o._id !== order._id));
     } catch (err) {
       console.error("Cancel order failed", err);
