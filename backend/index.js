@@ -35,7 +35,21 @@ app.get('/allWatchlist',async(req,res)=>{
     let allWatchlist = await watchlistModel.find({});
     res.json(allWatchlist);
 });
+app.get('/allOrders',async(req,res)=>{  
+    let allOrders = await orderModel.find({});
+    res.json(allOrders);
+});
 
+
+app.post('/addOrder',async(req,res)=>{
+    const {name,qty,price,mode} = req.body;
+    if(!name || !qty || !price || !mode){
+        return res.status(400).json({error:'Missing required fields'});
+    }
+    const newOrder = new orderModel({name,qty,price,mode});
+    await newOrder.save();
+    res.json({message:'Order added successfully'});
+}); 
 
 
 app.listen(PORT,()=>{
